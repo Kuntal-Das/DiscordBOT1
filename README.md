@@ -1,5 +1,6 @@
 # DiscordBOT1
-## basic invite link
+
+## Basic invite link
 https://discord.com/oauth2/authorize?client_id=763214802004606986&scope=bot
 
 ## ADMIN invite link
