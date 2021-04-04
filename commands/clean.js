@@ -1,6 +1,8 @@
 module.exports = {
   name: "clean",
   description: "clean past text messages in a channel",
+  args: true,
+  usage: '<number_of_messages_to_delete>',
   execute(message, args) {
     const lines = parseInt(args[0]) + 1;
 
@@ -14,5 +16,7 @@ module.exports = {
       console.error(err);
       message.channel.send('there was an error trying to prune messages in this channel!');
     });
-  }
+
+    // message.channel.send(`Arguments: ${args}\nArguments length: ${args.length}`);
+  },
 }
