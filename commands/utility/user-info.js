@@ -1,5 +1,3 @@
-// const { description } = require("../fun/ping");
-
 module.exports = {
   name: "user-info",
   description: "get user informaation of self",

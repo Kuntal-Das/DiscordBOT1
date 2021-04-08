@@ -5,13 +5,13 @@ module.exports = {
   description: "inspirational quots",
   cooldown: 5,
   execute(message, args) {
-    getQuote().then( quote => {
+    getQuote().then(quote => {
       message.channel.send(quote);
     })
   }
 }
 
-const getQuote = async () =>{
+const getQuote = async () => {
   let res = await fetch("https://zenquotes.io/api/random")
   let data = await res.json()
   let quote = ` ${data[0]["q"]} - ${data[0]["a"]} `
