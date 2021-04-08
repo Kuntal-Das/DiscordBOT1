@@ -3,6 +3,7 @@ const fetch = require("node-fetch")
 module.exports = {
   name: "inspire",
   description: "inspirational quots",
+  cooldown: 5,
   execute(message, args) {
     getQuote().then( quote => {
       message.channel.send(quote);

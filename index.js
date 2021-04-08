@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const { token } = require('./config.json');
-const prefix = "+"
+const prefix = "~"
 
 //declaring client and commands collection
 const client = new Discord.Client();
