@@ -1,19 +1,26 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const { token } = require('./config.json');
 const prefix = "+"
-// const { prefix, token } = require('./config.json');
 
 //declaring client and commands collection
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const commandFolders = fs.readdirSync("./commands");
 
-//commandFiles is a array of files names which contains commands
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-//maping commandFiles into collection(client.commands)
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+
+//looping commandFolders to get to the specfic commands 
+for (const folder in commandFolders) {
+
+  //commandFiles is a array of files names which contains commands
+  const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+  
+  //maping commandFiles into collection(client.commands)
+  for (const file of commandFiles) {
+    const command = require(`./commands/${folder}/${file}`);
+    client.commands.set(command.name, command);
+  }
 }
 
 //print 'READY' msg when the bot is ready
@@ -56,5 +63,5 @@ client.on('message', message => {
 
 });
 
-client.login(process.env.TOKEN);
-// client.login(token);
+// client.login(process.env.TOKEN);
+client.login(token);
