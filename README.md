@@ -8,3 +8,16 @@ https://discord.com/oauth2/authorize?client_id=763214802004606986&scope=bot&perm
 
 ## Specific invite link 
 https://discord.com/oauth2/authorize?client_id=763214802004606986&scope=bot&permissions=289926263
+
+**Prefix :** +
+
+**List of Commands**
+- beep
+- inspire
+- ping
+- clean
+- avatar
+- server
+- user-info
+
+
