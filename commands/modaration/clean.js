@@ -16,7 +16,13 @@ module.exports = {
       console.error(err);
       message.channel.send('there was an error trying to prune messages in this channel!');
     });
-
+    message.channel.send(`Deleted ${lines} no of lines`)
+    setTimeout( () => {
+      message.channel.bulkDelete(1, true).catch(err => {
+        console.error(err);
+        message.channel.send('there was an error trying to prune messages in this channel!');
+      });
+    },1000)
     // message.channel.send(`Arguments: ${args}\nArguments length: ${args.length}`);
   },
 }

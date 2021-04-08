@@ -9,9 +9,8 @@ client.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync("./commands");
 
 
-
 //looping commandFolders to get to the specfic commands 
-for (const folder in commandFolders) {
+for (const folder of commandFolders) {
 
   //commandFiles is a array of files names which contains commands
   const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));

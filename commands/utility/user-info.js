@@ -1,4 +1,4 @@
-const { description } = require("./ping");
+// const { description } = require("../fun/ping");
 
 module.exports = {
   name: "user-info",
