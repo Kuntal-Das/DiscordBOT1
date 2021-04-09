@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const { token } = require('./config.json');
-const prefix = "~"
+const { prefix } = require("./prefix.json");
 
 //declaring client and commands collection
 const client = new Discord.Client();
@@ -40,12 +40,15 @@ client.on('message', message => {
   //requested commands are logged in console
   console.log(`${commandName}(${args}) requested by : ${message.author.username} in #${message.channel.name}`);//print requested functions
 
-  if (!client.commands.has(commandName)) return;
+  // if (!client.commands.has(commandName)) return;
 
   // getting commands form client.commands collection if exists
-  command = client.commands.get(commandName);
+  const command = client.commands.get(commandName)
+    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-  // making sure server only commands don't get eexuted in DMs or outside a Server 
+  if (!command) return
+
+  // making sure `guild only commands` don't get exuted in DMs or outside a Server 
   if (command.guildOnly && message.channel.type === 'dm') {
     return message.reply('I can\'t execute that command inside DMs!');
   }
@@ -72,9 +75,10 @@ client.on('message', message => {
 
   // A reference to the Collection of user-ID and timestamp key/value pairs for the triggered command
   const timestamps = cooldowns.get(command.name);
-  // cooldown in milliseconds
+  // cooldown in milliseconds. min : 3000
   const cooldownAmount = (command.cooldown || 3) * 1000;
 
+  // if command is in the timestamps collection
   if (timestamps.has(message.author.id)) {
     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
@@ -83,9 +87,12 @@ client.on('message', message => {
       return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing  the "${command.name}" command`);
     }
   }
+  // if command is not found in the timestamps collection from the `client.cooldowns` collection
+  // add it to the collection with the author id 
+  timestamps.set(message.author.id, now);
 
-	timestamps.set(message.author.id, now);
-	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+  // and settimeout to delete it after the cooldown is over
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
   //executes the command and trys to catch any error is happened
   try {

@@ -1,7 +1,10 @@
 module.exports = {
   name: "clean",
-  description: "clean past text messages in a channel",
+  description: "clean/prune upto 99 past text messages in a channel",
   args: true,
+  cooldown: 5,
+  guildOnly: true,
+  aliases: ["prune", "clear", "delete", "del"],
   usage: '<number_of_messages_to_delete>',
   execute(message, args) {
     const lines = parseInt(args[0]) + 1;
